@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<!--Fontawesome-->
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+<link rel="stylesheet" href="../data/css/style.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-4">
+                <div class="card mt-4">
+                    <div class="card-header"><h3 class="display-5">Calculator</h3></div>
+                    <div class="card-body">
+                       
+                            <label for="">First Number</label>
+                            <input type="number" name="" id="fNumber" class="form-control mt-2" placeholder="Enter First Number">
+                            <small class="text-danger" id="fNumError">First Number Required !</small><br>
+            
+                            <label for="" class="mt-2">Second Number</label>
+                            <input type="number" name="" id="SNumber" class="form-control mt-2" placeholder="Enter Second Number">
+                            <small class="text-danger" id="sNumError">Second Number Required !</small><br>
+            
+                            <div class="form-group mt-2">
+                                <label for="">Operators</label>
+                                <select name="" id="operators" class="form-control mt-2">
+                                    <option value="empty">Choose Operators ..</option>
+                                    <option value="add">+</option>
+                                    <option value="minus">-</option>
+                                    <option value="multiply">*</option>
+                                    <option value="division">/</option>
+                                </select>
+                            </div>
+                            <small class="text-danger" id="operatorsError">Operators Required !</small><br>
+            
+                                <button class="btn  text-white mt-3" id="btnCalculate" onclick="calculate()" type="button">Calculate</button>
+                                <button class="btn  text-white mt-3" id="btnClear" onclick="clearForm()" type="button" >Clear</button>
+                    
+                   </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card mt-4">
+                    <div class="card-header" >
+                        <label for="">Here is your calculation : </label>
+                        
+                    </div>
+                    <div class="card-body" id="resultCard">
+                        <h3 id="result"></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 mt-4">
+                <div id="border">
+                    <div id="add"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;&nbsp;Add</div>
+                    <div id="minus"><i class="fas fa-minus-square"></i>&nbsp;&nbsp;&nbsp;Minus</div>
+                    <div id="mul"><i class="fas fa-times"></i>&nbsp;&nbsp;&nbsp;Multiplication</div>
+                    <div id="div"><i class="fas fa-divide"></i>&nbsp;&nbsp;&nbsp;Division</div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+</body>
+<script>
+     //hide error message
+     var firstNumError=document.getElementById("fNumError");
+     var secondNumError=document.getElementById("sNumError");
+     var operatorsError=document.getElementById("operatorsError");
+
+     var num1=document.getElementById("fNumber");
+     var num2=document.getElementById("SNumber");
+     var operators=document.getElementById("operators");
+     var result=document.getElementById("result");
+     var resultCard=document.getElementById("resultCard");
+
+     firstNumError.style.display="none";
+     secondNumError.style.display="none";
+     operatorsError.style.display="none";
+     resultCard.style.display="none";
+
+    function calculate(){
+        //get User Input
+        var num1=document.getElementById("fNumber").value;
+        var num2=document.getElementById("SNumber").value;
+        var operators=document.getElementById("operators").value;
+        var output;
+        var status=true;
+        if(num1==""|| num1== null)
+        {
+            firstNumError.style.display="block";
+            status=false;
+        }
+        else
+        {
+            firstNumError.style.display="none";
+            status=true;
+        }
+        if(num2==""|| num2== null)
+        {
+            secondNumError.style.display="block";
+            status=false;
+        }
+        else
+        {
+            secondNumError.style.display="none";
+            status=true;
+        }
+        if(operators=="empty")
+        {
+            operatorsError.style.display="block";
+            status=false;
+        }
+        else
+        {
+            operatorsError.style.display="none";
+            status=true;
+        }
+        if(status){
+            number1=parseInt(num1);
+            number2=parseInt(num2);
+            switch(operators){
+                case "add": 
+                output=number1+number2;
+                break;
+                case "minus": 
+                if(number1 > number2)
+                {
+                    output=number1-number2;
+
+                }
+                else
+                {
+                    output=number2-number1;
+                }
+                
+                break;
+                case "multiply": 
+                output=number1*number2;
+                break;
+                case "division": 
+                output=number1/number2;
+                break;
+            }
+            result.innerHTML=output;
+            if(result.innerHTML=output)
+            {
+                resultCard.style.display="block";
+            }
+            else
+            {
+                resultCard.style.display="none";
+            }
+        }
+        
+    }
+    
+    function clearForm(){
+        num1.value="";
+        num2.value="";
+        operators.options[0].selected=true;
+        result.innerHTML="";
+        firstNumError.style.display="none";
+        secondNumError.style.display="none";
+        operatorsError.style.display="none";
+        resultCard.style.display="none";
+    }
+</script>
+</html>
